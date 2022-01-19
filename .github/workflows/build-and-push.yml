@@ -50,3 +50,13 @@ jobs:
 
       - name: "Docker push httpd-${{ matrix.httpd-version }}"
         run: make build BUILDX_OPTIONS=--push HTTPD_VERSION=${{ matrix.httpd-version }}
+
+      - name: "Update Docker Hub Description (croneu/phpapp-web)"
+        uses: peter-evans/dockerhub-description@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          # Note: the "TOKEN" does not work for the docker hub API yet, see
+          # https://github.com/peter-evans/dockerhub-description/issues/10
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: croneu/phpapp-web
+          short-description: ${{ github.event.repository.description }}

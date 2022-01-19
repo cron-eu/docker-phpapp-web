@@ -34,10 +34,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .buildx-cache
-          key: ${{ runner.os }}-buildx-${{ matrix.php-version }}-${{ matrix.node-version }}-${{ github.sha }}
+          key: ${{ runner.os }}-buildx-${{ matrix.httpd-version }}-${{ github.sha }}
           restore-keys: |
-            "${{ runner.os }}-buildx-${{ matrix.php-version }}-${{ matrix.node-version }}-"
-            "${{ runner.os }}-buildx-${{ matrix.php-version }}-"
+            "${{ runner.os }}-buildx-${{ matrix.httpd-version }}-"
             "${{ runner.os }}-buildx-"
 
       - name: "Docker build httpd-${{ matrix.httpd-version }}"

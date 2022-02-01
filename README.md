@@ -37,7 +37,7 @@ Vhost.
 * `WEB_PORTS_HTTP` and `WEB_PORTS_HTTPS`: comma separated list of ports the webserver should bind
   to. Defaults to `80` and `443` but you can add additional ports for convenience, i.e. `8080`
   or `8000`. This makes the webserver reachable through the same ports as they are via docker
-  port mapping and could ease working with i.e. 404-handling, direct mail fetching, solr indexing:
+  port mapping and could ease working with i.e. 404-handling, direct mail fetching, solr indexing. See below for an example.
 
 ## Using
 
@@ -59,6 +59,8 @@ Then you can access the web-server:
 * http://my-app.vm:8080/
 * https://my-app.vm:8443/
 
+### Ports and hostname
+
 You can also make the other containers access it with the same hostname and port.
 Sample `docker-compose.yml` for that:
 
@@ -67,7 +69,7 @@ services:
   web:
     image: croneu/phpapp-web:apache-2.4
     ports:
-      - "8000:80"
+      - "8080:80"
       - "8443:443"
     volumes:
       - app:/app
@@ -80,8 +82,32 @@ services:
           - my-app.vm
 ```
 
-This way you can reach `http://www.example.com.vm:8080` from outside and also from inside docker
+This way you can reach `http://my-app.vm:8080` from outside and also from inside docker
 (other containers).
+
+### SSL certificate
+
+Generate a SSL certificate with `mkcert` and configure it in your `.env`:
+```
+mkcert my-app.vm
+( echo 'SSL_CRT="' ; cat my-app.vm.pem; echo '"' ; echo 'SSL_KEY="' ; cat my-app.vm-key.pem ; echo '"' ) >> .env
+```
+
+Your `.env` should then contain something like:
+
+```
+SSL_CRT="
+-----BEGIN CERTIFICATE-----
+...
+-----END CERTIFICATE-----
+"
+
+SSL_KEY="
+-----BEGIN PRIVATE KEY-----
+...
+-----END PRIVATE KEY-----
+"
+```
 
 ----
 

@@ -6,9 +6,10 @@ RUN apt-get -qq update && apt-get -q install -y openssl && rm -rf /var/lib/apt/l
 
 # Prepare our apache configuration
 RUN rm /usr/local/apache2/conf/extra/httpd-vhosts.conf /usr/local/apache2/conf/original/extra/httpd-ssl.conf
-COPY files/httpd.conf /usr/local/apache2/conf/httpd.conf
-COPY files/httpd-vhost.conf /usr/local/apache2/conf/extra/httpd-vhost.conf
-COPY files/httpd-vhost-ssl.conf /usr/local/apache2/conf/extra/httpd-vhost-ssl.conf.dummy
+
+# entrypoint.sh will copy the relevant files to /usr/local/apache2/conf/ on start
+RUN mkdir -p /opt/docker-phpapp-web/
+COPY files /opt/docker-phpapp-web/
 RUN chmod 644 /usr/local/apache2/conf/httpd.conf /usr/local/apache2/conf/extra/httpd-*
 
 # We need an alternative entrypoint to do some stuff upon starting the container

@@ -31,6 +31,14 @@ Vhost.
    * Laravel:  `/app/public`
    * Neos:  `/app/Web`
 
+* `HTTPD_EXTRA_CONF`: multiline string of extra configuration to put into httpd.conf. For example
+  can be used to load extra Apache modules, i.e.
+  ```
+  HTTPD_EXTRA_CONF="
+  LoadModule deflate_module modules/mod_deflate.so
+  "
+  ```
+
 * `SSL_CRT`, `SSL_KEY`: Add your SSL certificate and private key here (the PEM strings,
   not the filenames) to enable Apache with SSL support. It will automatically listen to port "8443"
 

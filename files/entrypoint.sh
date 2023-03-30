@@ -29,6 +29,13 @@ else
   rm -f /usr/local/apache2/conf/extra/httpd-vhost-ssl.conf
 fi
 
+# Add extra configuration from HTTPD_EXTRA_CONF variable
+if [ ! -z "$HTTPD_EXTRA_CONF" ]; then
+  echo $HTTPD_EXTRA_CONF > /usr/local/apache2/conf/extra/custom.conf
+else
+  echo> /usr/local/apache2/conf/extra/custom.conf
+fi
+
 # prepare vhost conf for HTTP
 VHOST="*:${WEB_PORTS_HTTP// / *:}"
 sed -e "s/###VHOST###/$VHOST/g;" /opt/docker-phpapp-web/httpd-vhost.conf > /usr/local/apache2/conf/extra/httpd-vhost.conf

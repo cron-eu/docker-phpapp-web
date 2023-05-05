@@ -31,9 +31,9 @@ fi
 
 # Add extra configuration from HTTPD_EXTRA_CONF variable
 if [ ! -z "$HTTPD_EXTRA_CONF" ]; then
-  echo $HTTPD_EXTRA_CONF > /usr/local/apache2/conf/extra/custom.conf
+  echo "$HTTPD_EXTRA_CONF" > /usr/local/apache2/conf/extra/custom.conf
 else
-  echo> /usr/local/apache2/conf/extra/custom.conf
+  >/usr/local/apache2/conf/extra/custom.conf
 fi
 
 # prepare vhost conf for HTTP

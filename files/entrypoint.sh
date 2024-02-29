@@ -3,14 +3,14 @@ set -e
 
 # Export these so that apache can use them in the configuration files directly
 export APP_WEBROOT=${APP_WEBROOT:-/app/html}
-export PHP_HOSTNAME=${PHP_HOSTNAME:-php}
-export PHP_PORT=${PHP_PORT:-9000}
+export PHPFPM_HOSTNAME=${PHPFPM_HOSTNAME:-php}
+export PHPFPM_PORT=${PHPFPM_PORT:-9000}
 
 # List of ports to listen to, space separated list
 WEB_PORTS_HTTP=${WEB_PORTS_HTTP:-80}
 
 echo "* DocumentRoot: $APP_WEBROOT"
-echo "* PHP-FPM: $PHP_HOSTNAME:$PHP_PORT"
+echo "* PHP-FPM: $PHPFPM_HOSTNAME:$PHPFPM_PORT"
 
 # If env variables SSL_KEY and SSL_CRT are set, configure apache for SSL access
 if [ ! -z "$SSL_KEY" ] && [ ! -z "$SSL_CRT" ]; then

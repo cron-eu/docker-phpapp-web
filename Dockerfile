@@ -2,7 +2,7 @@
 FROM httpd:2.4
 
 # We will need openssl tool for the entrypoint
-RUN apt-get -qq update && apt-get -q install -y openssl netcat && rm -rf /var/lib/apt/lists/*
+RUN apt-get -qq update && apt-get -q install -y openssl netcat-traditional && rm -rf /var/lib/apt/lists/*
 
 # Prepare our apache configuration
 RUN rm /usr/local/apache2/conf/extra/httpd-vhosts.conf /usr/local/apache2/conf/original/extra/httpd-ssl.conf

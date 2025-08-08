@@ -32,18 +32,6 @@ jobs:
           endpoint: "ssh://ec2-user@arm.d.cron.eu"
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: "Cache Docker layers"
-        uses: actions/cache@v2
-        with:
-          path: .buildx-cache
-          key: ${{ runner.os }}-buildx-${{ matrix.httpd-version }}-${{ github.sha }}
-          restore-keys: |
-            "${{ runner.os }}-buildx-${{ matrix.httpd-version }}-"
-            "${{ runner.os }}-buildx-"
-
-      - name: "Docker build httpd-${{ matrix.httpd-version }}"
-        run: make build HTTPD_VERSION=${{ matrix.httpd-version }}
-
       - name: "Login to DockerHub"
         uses: docker/login-action@v3
         with:

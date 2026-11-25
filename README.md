@@ -121,7 +121,7 @@ SSL_KEY="
 
 ## Docker Image Development
 
-Build is triggered automatically via Github Actions.
+Build is triggered automatically via Github Actions on every push to `master`. To pick up updates of the upstream `httpd:2.4` image (e.g. security fixes), start it manually ("Run workflow" in the Actions tab).
 
 To create them locally for testing purposes (and load created images to your docker):
 

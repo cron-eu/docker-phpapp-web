@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+  # Manual rebuild, e.g. to pick up security fixes in the upstream httpd image
+  workflow_dispatch:
 
 env:
   PLATFORMS: linux/arm64/v8,linux/amd64
@@ -45,6 +47,7 @@ jobs:
           tags: "croneu/phpapp-web:apache-${{ matrix.httpd-version }}"
           platforms: ${{ env.PLATFORMS }}
           push: true
+          pull: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
